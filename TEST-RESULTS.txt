@@ -1,0 +1,41 @@
+Sistemskim testiranjem naišo sam na propuste:
+
+1. Kada se oduzimaju dva decimalna broja dolazi greške npr. 2.5-3.9 kao
+rezultat se dobija -1.4000001
+2. Nije podržano deljenje i množenje sa negativnim brojem npr. 
+-5/-2, a zagrade nisu uopšte podržane i ovaj izraz nije moguće izračunati
+dobija se ERROR
+3. Dobija se Exception in thread "main" java.lang.StringIndexOutOfBoundsException: 
+kada se unese prazan unos, nije obrađen slučaj za unos praznog reda
+4. Množenje sa većim decimalnim iznosima se ne zaokružuje na dobru decimalu
+npr. 2.0000001*2 dobija se rezultat 4.0
+
+Jedinični test:
+
+public void testCalculate() {
+        List<Float> numbers = new ArrayList<>();
+        numbers.add(5.0f);  // Dodajemo brojeve 5 i 3 na početak liste
+        numbers.add(3.0f);
+        
+        List<String> operations = new ArrayList<>();
+        operations.add("+"); // Dodajemo operator sabiranja na početak liste
+        
+        Calculator.Calculate(numbers, operations); // Pozivamo metodu Calculate sa ovim podacima
+        
+        // Očekujemo da će rezultat biti 8.0
+        assertEquals(8.0f, Calculator.finalResult, 0.0f);
+    }
+
+Ovaj jedinični test proverava da li metod Calculate ispravno obrađuje 
+listu brojeva i operacija i da li vraća tačan rezultat.
+U ovom testu dodajemo dva broja (5 i 3) na početak liste brojeva i
+operator sabiranja (+) na početak liste operacija. Zatim pozivamo metod
+Calculate sa ovim podacima i proveravamo da li je rezultat
+(koji se smešta u statičko polje finalResult klase Calculator)
+jednak 8.0, što bi trebalo da bude slučaj ako je sabiranje
+ispravno izvršeno.
+
+
+
+
+
